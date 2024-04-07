@@ -590,14 +590,8 @@ func (root *Root) normalLeftStatus() (contents, int) {
 	leftStatus := fmt.Sprintf("%s%s%s:%s", number, modeStatus, caption, root.message)
 	leftContents := StrToContents(leftStatus, -1)
 
-	if root.Config.Prompt.Normal.InvertColor {
-		color := tcell.ColorWhite
-		if root.CurrentDoc != 0 {
-			color = tcell.Color((root.CurrentDoc + 8) % 16)
-		}
-		for i := 0; i < len(leftContents); i++ {
-			leftContents[i].style = leftContents[i].style.Foreground(tcell.ColorValid + color).Reverse(true)
-		}
+	for i := 0; i < len(leftContents); i++ {
+		leftContents[i].style = applyStyle(tcell.StyleDefault, root.StyleStatus)
 	}
 
 	return leftContents, len(leftContents)
@@ -650,7 +644,14 @@ func (root *Root) rightStatus() contents {
 	if atomic.LoadInt32(&root.Doc.tmpFollow) == 1 {
 		str = fmt.Sprintf("(?/%d%s)", root.Doc.storeEndNum(), next)
 	}
-	return StrToContents(str, -1)
+
+	rightContents := StrToContents(str, -1)
+
+	for i := 0; i < len(rightContents); i++ {
+		rightContents[i].style = applyStyle(tcell.StyleDefault, root.StyleStatus)
+	}
+
+	return rightContents
 }
 
 // setContentString is a helper function that draws a string with setContent.
