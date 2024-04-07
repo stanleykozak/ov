@@ -5,6 +5,9 @@ func NewConfig() Config {
 	return Config{
 		MemoryLimit:     -1,
 		MemoryLimitFile: 100,
+		StyleStatus: OVStyle{
+		  Foreground: "#FF00FF",
+		},
 		StyleHeader: OVStyle{
 			Bold: true,
 		},
