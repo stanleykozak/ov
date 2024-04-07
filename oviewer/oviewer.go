@@ -204,6 +204,7 @@ type Config struct {
 	// Prompt is the prompt setting.
 	Prompt OVPromptConfig
 
+	StyleStatus OVStyle
 	// StyleHeader is the style that applies to the header.
 	StyleHeader OVStyle
 	// StyleBody is the style that applies to the body.
